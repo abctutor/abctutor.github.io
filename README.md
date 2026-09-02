@@ -45,6 +45,17 @@ Real SMS providers like Twilio need a secret key that can't safely live in publi
 
 Add, remove, or edit tutors in `data/tutors.js` — no build step, just edit and refresh. Each tutor has a `weeklyPattern` (recurring day-of-week + time openings); the site generates the actual upcoming dates from that automatically.
 
+## Analytics (PostHog)
+
+Every page loads PostHog (see the snippet in each `<head>`), which gives pageviews and click autocapture for free. `js/analytics.js` adds a `trackEvent()` helper that `js/booking.js` uses for four custom events — none of them include the parent's name, email, phone, or the child's name, only anonymous behavior:
+
+- `tutor_card_viewed` — a tutor's card scrolled into view (fires once per tutor per visit)
+- `tutor_slot_selected` — a time slot was clicked, opening the booking modal
+- `booking_abandoned` — the modal was closed without completing a booking
+- `booking_completed` — a booking was confirmed
+
+In PostHog, build an **Insight** (Trends, event `tutor_card_viewed` or `tutor_slot_selected`, breakdown by `tutor_name`) to see which tutors get the most interest, and a **Funnel** from `tutor_slot_selected` → `booking_completed` to see how many visitors actually book vs. leave.
+
 ## Local preview
 
 No build tools needed — just serve the folder:

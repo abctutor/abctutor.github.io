@@ -15,6 +15,9 @@ const NUM_DAYS_AHEAD = 14;
 const MAX_SLOTS_SHOWN = 8;
 
 let selectedSlot = null; // { tutor, dateStr, dayLabel, time, subject }
+let bookingCompleted = false;
+const viewedTutorIds = new Set();
+let cardObserver = null;
 
 /* ---------------- storage ---------------- */
 
@@ -232,13 +235,50 @@ function buildTutorCard(tutor) {
   }
 
   card.append(head, subjectTags, gradeTags, bio, availSummary, slotWrap);
+
+  card.dataset.tutorId = tutor.id;
+  card.dataset.tutorName = tutor.name;
+  observeCardView(card);
+
   return card;
+}
+
+function observeCardView(cardEl) {
+  if (!("IntersectionObserver" in window)) return;
+  if (!cardObserver) {
+    cardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const tutorId = entry.target.dataset.tutorId;
+          if (!viewedTutorIds.has(tutorId)) {
+            viewedTutorIds.add(tutorId);
+            trackEvent("tutor_card_viewed", {
+              tutor_id: tutorId,
+              tutor_name: entry.target.dataset.tutorName
+            });
+          }
+          cardObserver.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.5 }
+    );
+  }
+  cardObserver.observe(cardEl);
 }
 
 /* ---------------- modal / booking flow ---------------- */
 
 function openBookingModal(tutor, slot) {
   selectedSlot = { tutor, ...slot };
+  bookingCompleted = false;
+
+  trackEvent("tutor_slot_selected", {
+    tutor_id: tutor.id,
+    tutor_name: tutor.name,
+    date: slot.date,
+    time: slot.time
+  });
 
   document.getElementById("modalFormStep").hidden = false;
   document.getElementById("modalConfirmStep").hidden = true;
@@ -264,6 +304,14 @@ function openBookingModal(tutor, slot) {
 }
 
 function closeBookingModal() {
+  if (selectedSlot && !bookingCompleted) {
+    trackEvent("booking_abandoned", {
+      tutor_id: selectedSlot.tutorId,
+      tutor_name: selectedSlot.tutor.name,
+      date: selectedSlot.date,
+      time: selectedSlot.time
+    });
+  }
   document.getElementById("bookingModalOverlay").classList.remove("open");
   document.body.style.overflow = "";
   selectedSlot = null;
@@ -345,6 +393,16 @@ async function handleBookingSubmit(event) {
   };
 
   saveBooking(booking);
+  bookingCompleted = true;
+  trackEvent("booking_completed", {
+    tutor_id: booking.tutorId,
+    tutor_name: booking.tutorName,
+    subject: booking.subject,
+    grade: booking.grade,
+    date: booking.date,
+    time: booking.time,
+    hourly_rate: booking.hourlyRate
+  });
   renderTutorGrid();
   showConfirmationStep(booking);
 
