@@ -54,10 +54,24 @@ function delay(minMs, maxMs) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+const DESKTOP_UA =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36";
+const MOBILE_UA =
+  "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Mobile Safari/537.36";
+
 async function simulateVisitor(browser, visitorNum) {
   const isMobile = Math.random() < 0.3;
   const context = await browser.newContext({
-    viewport: isMobile ? { width: 375, height: 812 } : { width: 1280, height: 800 }
+    viewport: isMobile ? { width: 375, height: 812 } : { width: 1280, height: 800 },
+    userAgent: isMobile ? MOBILE_UA : DESKTOP_UA
+  });
+  // Playwright's automated Chromium sets navigator.webdriver = true and its
+  // UA says "HeadlessChrome" by default, both of which get this traffic
+  // silently dropped by PostHog's (and most analytics tools') built-in bot
+  // filtering. The userAgent override above and this init script make the
+  // simulated visits register as ordinary browser traffic.
+  await context.addInitScript(() => {
+    Object.defineProperty(navigator, "webdriver", { get: () => false });
   });
   const page = await context.newPage();
 
