@@ -1,0 +1,12 @@
+{
+  "name": "abctutor-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Dev-only tooling for abctutor.github.io. The site itself is plain HTML/CSS/JS with no build step.",
+  "scripts": {
+    "simulate": "node scripts/simulate-traffic.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}
