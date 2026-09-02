@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Find a Tutor — ABC Tutor</title>
+<meta name="description" content="Browse tutors by subject and grade level, see real availability, and book instantly.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">📚</span> ABC Tutor
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tutors.html" class="active">Find a Tutor</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="tutors.html" class="btn btn-primary btn-block">Book a Tutor</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section class="section" style="padding-bottom: 0;">
+    <div class="container">
+      <div class="section-head" style="margin-bottom: 1.5rem;">
+        <h1>Find a Tutor</h1>
+        <p>Only real, open time slots are shown below — pick one that works and you're booked.</p>
+      </div>
+
+      <div class="filters">
+        <div class="field">
+          <label for="filterSubject">Subject</label>
+          <select id="filterSubject">
+            <option value="">All Subjects</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filterGrade">Grade Level</label>
+          <select id="filterGrade">
+            <option value="">All Grade Levels</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <p id="noResults" class="no-slots" hidden>No tutors match those filters yet — try a different subject or grade level.</p>
+      <div class="tutor-grid" id="tutorGrid"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span id="year"></span> ABC Tutor. Made with care for busy parents.</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="tutors.html">Find a Tutor</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Booking modal -->
+<div class="modal-overlay" id="bookingModalOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+    <div id="modalFormStep">
+      <div class="modal-head">
+        <h3 id="modalTitle">Book Your Session</h3>
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close">&times;</button>
+      </div>
+
+      <div class="booking-summary">
+        <strong id="modalTutorName"></strong><br>
+        <span id="modalSlotInfo"></span> · <span id="modalRate"></span>
+      </div>
+
+      <p class="form-error" id="slotTakenError">
+        Oops — that time was just booked by someone else. Please choose another time below.
+      </p>
+
+      <form id="bookingForm" novalidate>
+        <div class="field">
+          <label for="bookingParentName">Your Name</label>
+          <input type="text" id="bookingParentName" autocomplete="name" required>
+          <span class="form-error" data-for="parentName"></span>
+        </div>
+        <div class="field">
+          <label for="bookingParentEmail">Your Email</label>
+          <input type="email" id="bookingParentEmail" autocomplete="email" required>
+          <span class="form-error" data-for="parentEmail"></span>
+        </div>
+        <div class="field">
+          <label for="bookingParentPhone">Your Phone Number</label>
+          <input type="tel" id="bookingParentPhone" autocomplete="tel" placeholder="(555) 555-5555" required>
+          <span class="form-error" data-for="parentPhone"></span>
+        </div>
+        <div class="field">
+          <label for="bookingChildName">Child's Name</label>
+          <input type="text" id="bookingChildName" required>
+          <span class="form-error" data-for="childName"></span>
+        </div>
+        <div class="field">
+          <label for="bookingGrade">Child's Grade Level</label>
+          <select id="bookingGrade"></select>
+        </div>
+        <div class="field">
+          <label for="bookingSubject">Subject</label>
+          <select id="bookingSubject"></select>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" id="bookingSubmitBtn">Confirm Booking</button>
+      </form>
+    </div>
+
+    <div id="modalConfirmStep" hidden>
+      <div class="confirmation">
+        <div class="check-badge">✓</div>
+        <h3>You're all set!</h3>
+        <p id="confirmSummary"></p>
+        <div class="notify-status">
+          <div class="row" id="notifyEmailRow"></div>
+          <div class="row" id="notifyTextRow"></div>
+        </div>
+        <button class="btn btn-primary btn-block" id="modalDoneBtn" style="margin-top:1.5rem;">Done</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="data/tutors.js"></script>
+<script src="js/notifications.js"></script>
+<script src="js/booking.js"></script>
+<script src="js/main.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>

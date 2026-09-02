@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us — ABC Tutor</title>
+<meta name="description" content="Questions about tutoring, billing, or a booking? Get in touch with ABC Tutor.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">📚</span> ABC Tutor
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="tutors.html">Find a Tutor</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+      <li class="nav-cta"><a href="tutors.html" class="btn btn-primary btn-block">Book a Tutor</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <div class="section-head" style="margin-bottom:2rem;">
+        <h1>We're happy to help</h1>
+        <p>Questions about a tutor, a booking, or billing? Reach out any time — we usually reply the same day.</p>
+      </div>
+
+      <div class="contact-wrap">
+        <div class="form-card">
+          <h3>Send us a message</h3>
+          <form id="contactForm" novalidate>
+            <div class="field">
+              <label for="contactName">Your Name</label>
+              <input type="text" id="contactName" autocomplete="name" required>
+              <span class="form-error" data-for="contactName"></span>
+            </div>
+            <div class="field">
+              <label for="contactEmail">Your Email</label>
+              <input type="email" id="contactEmail" autocomplete="email" required>
+              <span class="form-error" data-for="contactEmail"></span>
+            </div>
+            <div class="field">
+              <label for="contactMessage">Message</label>
+              <textarea id="contactMessage" rows="5" style="padding:0.7em 0.8em;border:1px solid var(--color-border);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:1rem;resize:vertical;" required></textarea>
+              <span class="form-error" data-for="contactMessage"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+          </form>
+        </div>
+
+        <div>
+          <div class="contact-card" style="margin-bottom:1.5rem;">
+            <h3>Get in touch</h3>
+            <div class="contact-info-item">
+              <div class="icon">📧</div>
+              <div>
+                <strong>Email</strong><br>
+                <a href="mailto:hello@abctutor.example">hello@abctutor.example</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="icon">📞</div>
+              <div>
+                <strong>Phone</strong><br>
+                <a href="tel:+15555550123">(555) 555-0123</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="icon">🕘</div>
+              <div>
+                <strong>Hours</strong><br>
+                Mon–Fri, 9am–6pm
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <h3>Common Questions</h3>
+            <div class="faq-item">
+              <h4>Do I need to create an account to book?</h4>
+              <p>No. Just pick a tutor and an open time, fill in your info, and you're booked.</p>
+            </div>
+            <div class="faq-item">
+              <h4>How will I know my booking went through?</h4>
+              <p>You'll see an instant confirmation on screen, plus a confirmation email and text.</p>
+            </div>
+            <div class="faq-item">
+              <h4>Can two families book the same time slot?</h4>
+              <p>No — once a time is booked, it's removed from that tutor's list right away so it can't be booked again.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span id="year"></span> ABC Tutor. Made with care for busy parents.</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="tutors.html">Find a Tutor</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  document.querySelectorAll(".form-error").forEach((el) => el.classList.remove("show"));
+
+  const name = document.getElementById("contactName").value.trim();
+  const email = document.getElementById("contactEmail").value.trim();
+  const message = document.getElementById("contactMessage").value.trim();
+  let hasError = false;
+
+  if (!name) {
+    document.querySelector('.form-error[data-for="contactName"]').textContent = "Please enter your name.";
+    document.querySelector('.form-error[data-for="contactName"]').classList.add("show");
+    hasError = true;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.querySelector('.form-error[data-for="contactEmail"]').textContent = "Please enter a valid email address.";
+    document.querySelector('.form-error[data-for="contactEmail"]').classList.add("show");
+    hasError = true;
+  }
+  if (!message) {
+    document.querySelector('.form-error[data-for="contactMessage"]').textContent = "Please enter a message.";
+    document.querySelector('.form-error[data-for="contactMessage"]').classList.add("show");
+    hasError = true;
+  }
+  if (hasError) return;
+
+  this.reset();
+  showToast("Thanks! Your message has been sent — we'll reply soon.");
+});
+</script>
+</body>
+</html>

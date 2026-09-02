@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC Tutor — Friendly, Reliable Tutoring for Your Child</title>
+<meta name="description" content="Book a friendly, qualified tutor for your child in minutes. See real availability, pick a time, and get instant confirmation — no account needed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">📚</span> ABC Tutor
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="tutors.html">Find a Tutor</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="nav-cta"><a href="tutors.html" class="btn btn-primary btn-block">Book a Tutor</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">🎉 No account needed — just pick a time</span>
+      <h1>Tutoring that feels friendly, not stressful.</h1>
+      <p class="lead">Browse real, qualified tutors, see exactly when they're free, and book a session in under two minutes. You'll get an instant email and text confirming everything.</p>
+      <div class="hero-actions">
+        <a href="tutors.html" class="btn btn-accent">Find a Tutor</a>
+        <a href="contact.html" class="btn btn-outline">Have Questions?</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="trust-strip">
+      <span>✅ Real, up-to-date availability</span>
+      <span>✅ Instant email &amp; text confirmation</span>
+      <span>✅ No sign-up required</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>How it works</h2>
+        <p>Three simple steps — no login, no phone tag, no guessing whether a time is actually open.</p>
+      </div>
+      <div class="how-grid">
+        <div class="how-card">
+          <div class="how-num">1</div>
+          <h3>Browse tutors</h3>
+          <p>See each tutor's subjects, grade levels, rate, and photo — all in one place.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">2</div>
+          <h3>Pick an open time</h3>
+          <p>Only times that are actually free are shown, so you'll never get a "sorry, that's taken" surprise.</p>
+        </div>
+        <div class="how-card">
+          <div class="how-num">3</div>
+          <h3>Get confirmed instantly</h3>
+          <p>You'll receive an email and text right away confirming your child's session.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Ready to find the right fit?</h2>
+        <p>Every tutor on ABC Tutor is friendly, patient, and ready to help your child feel more confident.</p>
+      </div>
+      <div class="text-center">
+        <a href="tutors.html" class="btn btn-primary">Meet Our Tutors</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div>© <span id="year"></span> ABC Tutor. Made with care for busy parents.</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="tutors.html">Find a Tutor</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
